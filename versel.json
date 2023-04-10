@@ -2,16 +2,14 @@
 "name":"yarinnneaksa",
 "version" :"1",
 "public" :"true",
-"buid" :{
+"buid" :[{
 "src" : "./index.js",
 "use" : "@versel/node"
-} ,
-"routes" : {
+}] ,
+"routes" : [{
     "src" : "./(.)",
-    "dest" : "/"
-
-}
-
+    "dest" : "/" }
+]
 
 
 }
