@@ -1,5 +1,6 @@
 const Parse = require('parse/node')
 const express = require('express')
+const path = require('path')
 
 const APP_ID = "qQzTG8wfd04DU4g2rbhMsTwzLWDlvdiuJiUF4Acp" 
 const JAVASCRIPT_ID = "qvvVvsGsrEknpWUvtt4N8DOJSw8kbKgpOYN2uMiD" 
@@ -36,15 +37,26 @@ async function createProduto() {
 
 
 const app = express();
+app.set('views', path.join(__dirname, 'src/views'))
+
+
+app.use('/assets',express.static(__dirname + '/assets'))
+ 
+app.set('view engine', 'ejs')
 
 app.get("/" , (req,res) => {
     appartmentQuery.find() 
-    .then((obj) => res.json(obj))
-    .catch((err) => res.json(err))
+   
 
-} )
+    res.render('layouts//index.ejs', {
+        title: 'Dashboard',
+        user: req.user,
+        banco: appartmentQuery.find() }); 
+    
 
-const port = process.env.PORT || 9001
+})
+
+const port = process.env.PORT || 8080
 
 app.listen(port,() => {
 console.log('app run')
@@ -54,7 +66,7 @@ console.log('app run')
 
 
 app.get("/teste" , (req,res) => {
-    res.statusCode = 200;
+    res.statusCode = 200;classcl
     res.setHeader('Content-Type', 'text/plain');
     res.end('Hello World');
   
