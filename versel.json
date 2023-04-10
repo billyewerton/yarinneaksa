@@ -1,15 +1,10 @@
-{
-"name":"yarinnneaksa",
-"version" :"1",
-"public" :"true",
-"buid" :[{
-"src" : "./index.js",
-"use" : "@versel/node"
-}] ,
-"routes" : [{
-    "src" : "./(.)",
-    "dest" : "/" }
-]
-
-
-}
+ {
+    "version": 2,
+    "name": "yarinnneaksa-album",
+    "builds": [
+      { "src": "index.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/app.js" }
+    ]
+  }
