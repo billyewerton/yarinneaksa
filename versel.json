@@ -3,10 +3,12 @@
 "version" :"1",
 "public" :"true",
 "buid" :{
-"src" : "index.js",
-"use" : "versel/node"
+"src" : "./index.js",
+"use" : "@versel/node"
 } ,
 "routes" : {
+    "src" : "./(.)",
+    "dest" : "/"
 
 }
 
