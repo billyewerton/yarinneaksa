@@ -1,7 +1,7 @@
 const Parse = require('parse/node')
 const express = require('express')
 const path = require('path')
-
+const admin = require("./routes/admin")
 const APP_ID = "qQzTG8wfd04DU4g2rbhMsTwzLWDlvdiuJiUF4Acp" 
 const JAVASCRIPT_ID = "qvvVvsGsrEknpWUvtt4N8DOJSw8kbKgpOYN2uMiD" 
 Parse.initialize(APP_ID,JAVASCRIPT_ID)
@@ -10,6 +10,12 @@ Parse.serverURL ="https://parseapi.back4app.com/"
 const Produto = Parse.Object.extend("Produto")
 const produto = new Produto()
 const appartmentQuery = new Parse.Query(produto)
+const app = express();
+
+// rotas 
+
+app.use('/' ,admin)
+
 
 
 async function createProduto() {
@@ -36,15 +42,18 @@ async function createProduto() {
 //createProduto()
 
 
-const app = express();
+
+
 app.set('views', path.join(__dirname, 'src/views'))
 
 
 app.use('/assets',express.static(__dirname + '/assets'))
  
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs') 
+ 
 
-app.get("/" , (req,res) => {
+
+app.get("/tteste" , (req,res) => {
     appartmentQuery.find() 
    
 
