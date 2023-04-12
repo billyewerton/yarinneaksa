@@ -10,6 +10,12 @@ Parse.serverURL ="https://parseapi.back4app.com/"
 const Produto = Parse.Object.extend("Produto")
 const produto = new Produto()
 const appartmentQuery = new Parse.Query(produto)
+
+
+const Preco = Parse.Object.extend("Preco")
+ 
+const precos = new Parse.Query(new Preco())
+
 const app = express();
 
 // rotas 
@@ -39,8 +45,20 @@ async function createProduto() {
 
 }
 
-//createProduto()
+ //createProduto()
 
+ getAllUsersWithHobbies()
+   function getAllUsersWithHobbies() {
+    const users = new Parse.Query(produto).find()
+    
+    console.log(users)
+
+   // const usersIds = _.map(users, (el) => el.id);  
+//const Hobbies = await database('user_hobbies').select().whereIn('user_id', usersIds) 
+  //  const groupedHobbies = _.groupBy(Hobbies, 'user_id');
+
+    
+}
 
 
 
@@ -53,17 +71,9 @@ app.set('view engine', 'ejs')
  
 
 
-app.get("/tteste" , (req,res) => {
-    appartmentQuery.find() 
-   
-
-    res.render('layouts//index.ejs', {
-        title: 'Dashboard',
-        user: req.user,
-        banco: appartmentQuery.find() }); 
-    
-
-})
+ app.get("/teste", async (req, res) => {
+ 
+});
 
 const port = process.env.PORT || 8080
 
@@ -73,7 +83,7 @@ console.log('app run')
 })
 
 
-
+ 
 app.get("/teste" , (req,res) => {
     res.statusCode = 200;classcl
     res.setHeader('Content-Type', 'text/plain');

@@ -1,0 +1,29 @@
+
+<%- include('../layouts/main_header.ejs'); %>
+ 
+<table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Marca</th>
+        <th>Ativo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const produto of banco) { %>
+        <tr>
+          <td><%= produto.ds_nome %></td>
+          <td><%= produto.ds_marca %></td>
+          <td><%= produto.tp_ativo %></td>
+        </tr>
+      <% } %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">Total de produtos: <%= banco.length %></td>
+      </tr>
+    </tfoot>
+  </table>
+
+
+<%- include('../layouts/main_footer.ejs'); %>

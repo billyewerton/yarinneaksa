@@ -7,6 +7,7 @@ const admincontroller = require("../src/controllers/admin-controller")
 router.get('/', admincontroller.main)
 
 
+router.get('/ingredientes', admincontroller.ingredientes)
 
 
 
