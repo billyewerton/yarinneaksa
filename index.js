@@ -1,7 +1,7 @@
 const Parse = require('parse/node')
 const express = require('express')
 const path = require('path')
-const admin = require("./routes/admin")
+const admin = require("./routes/admin.js")
 const APP_ID = "qQzTG8wfd04DU4g2rbhMsTwzLWDlvdiuJiUF4Acp" 
 const JAVASCRIPT_ID = "qvvVvsGsrEknpWUvtt4N8DOJSw8kbKgpOYN2uMiD" 
 Parse.initialize(APP_ID,JAVASCRIPT_ID)

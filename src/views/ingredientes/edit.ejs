@@ -1,0 +1,56 @@
+
+<%- include('../layouts/main_header.ejs'); %>
+<%= console.log(banco[0]) %>
+ 
+  <div class="container mt-5">
+    <h1> Produto</h1>
+    <form action="/ingrediente-save" method="get">
+      <div class="form-group">
+        <label for="ds_nome">NOME DO PRODUTO</label>
+        <input type="text" class="form-control" id="ds_nome" name="ds_nome" value="<%= banco.ds_nome %>" required>
+      </div>
+      <div class="form-group">
+        <label for="ds_marca">MARCA</label>
+        <input type="text" class="form-control" id="ds_marca" name="ds_marca" value="<%= banco.ds_marca %>" required>
+      </div>
+      <div class="form-group">
+        <label for="ds_preco">PREÇO ATUAL</label>
+        <div class="input-group-prepend">
+          <span class="input-group-text">R$</span>
+          <input type="text"  pattern="[0-9]+([.,][0-9]{1,2})?" required class="form-control" id="ds_preco" name="ds_preco" min="0" step="1" value="<%= banco.preco %>" required>
+        </div>
+       
+       
+      </div>
+      <div class="form-group">
+        <label for="ds_quantidade">QUANTIDADE</label>
+        <input type="number" class="form-control" id="ds_quantidade" name="ds_quantidade" min="0" step="1" value="<%= banco.quantidade %>" required>
+      </div>
+      <div class="form-group">
+        <label for="ds_unidade">UNIDADE DE MEDIDA</label>
+        <select class="form-control" id="ds_unidade" name="ds_unidade"  required>
+          <option value="GRAMAS">GRAMAS</option>
+          <option value="ML" <%= banco.unidade == 'ML' ? 'selected' : '' %> >ML</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="ds_unidade">ATIVO </label>
+        <select class="form-control" id="ds_ativo" name="ds_ativo"  required>
+          <option value="true">NAO</option>
+          <option value="false" <%= !banco.tp_ativo  ? 'selected' : '' %> > NÃO</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success" title="Confirmar">Confirmar</button>
+      <a href="/ingredientes" class="btn btn-danger" title="Cancelar">Cancelar</a>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 
+
+<%- include('../layouts/main_footer.ejs'); %>

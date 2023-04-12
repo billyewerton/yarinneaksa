@@ -7,7 +7,7 @@
     "node": "18.x"
   },
   "scripts": {
-    "start": "nodemon     -watch \"src/\" --watch index.js --watch libs app/server.js --exec \"ts-node index.js\" -e ts ",
+    "start": "nodemon index.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,3 +21,4 @@
     "parse": "^4.0.1"
   }
 }
+ 

@@ -1,12 +1,13 @@
 
 <%- include('../layouts/main_header.ejs'); %>
  
-<table>
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
       <tr>
         <th>Nome</th>
         <th>Marca</th>
         <th>Ativo</th>
+        <th>Data ultima atualização de preço</th>
       </tr>
     </thead>
     <tbody>
@@ -14,7 +15,13 @@
         <tr>
           <td><%= produto.ds_nome %></td>
           <td><%= produto.ds_marca %></td>
-          <td><%= produto.tp_ativo %></td>
+          <td><%= produto.tp_ativo ? 'sim' : 'nao' %></td>
+          <td><%= produto.data %></td>
+          <td><%= produto.unidade %></td>
+          <td><%= produto.quantidade %></td>
+          <td><%= produto.preco %></td>
+
+          <td><a href="/ingredientes-edit?objectId=<%= produto.objectId %>">Editar</a></td>
         </tr>
       <% } %>
     </tbody>
