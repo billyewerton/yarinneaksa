@@ -1,5 +1,5 @@
 const produto = require('../domains/produto'); // Substitua pelo caminho correto do arquivo da classe Produto
-const preco = require('../domains/preco'); // Substitua pelo caminho correto do arquivo da classe Produto
+const preco = require('../domains/produto-preco'); // Substitua pelo caminho correto do arquivo da classe Produto
 const MongoDBConnection = require('../services/mongoDBConnection');
 
 class PrecoController {

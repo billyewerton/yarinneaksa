@@ -1,5 +1,5 @@
 const Produto = require('../domains/produto'); // Substitua pelo caminho correto do arquivo da classe Produto
-const Preco = require('../domains/preco'); // Substitua pelo caminho correto do arquivo da classe Produto
+const Preco = require('../domains/produto-preco'); // Substitua pelo caminho correto do arquivo da classe Produto
 const MongoDBConnection = require('./mongoDBConnection');
 const ObjectId = require('mongodb').ObjectId;
 

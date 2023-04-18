@@ -10,7 +10,7 @@ Parse.serverURL ="https://parseapi.back4app.com/"
 const ProdutoController = require('../services/produtoService');
 const PrecoController = require('../controllers/precoController');
 const Produto = require('../domains/produto'); 
-const Preco = require('../domains/preco'); 
+const Preco = require('../domains/produto-preco'); 
 exports.main = async (req,res) => {
 
      const ProdutoControllers = new ProdutoController(); 
