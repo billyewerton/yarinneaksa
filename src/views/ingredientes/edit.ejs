@@ -1,10 +1,12 @@
 
 <%- include('../layouts/main_header.ejs'); %>
-<%= console.log(banco[0]) %>
+<form action="/ingrediente-save" method="post">
  
   <div class="container mt-5">
+    <input type="hidden" class="form-control" id="id" name="id" value="<%= banco.id %>"  >
+    <input type="hidden" class="form-control" id="ref" name="ref" value="<%= banco.ref %>"  >
     <h1> Produto</h1>
-    <form action="/ingrediente-save" method="get">
+ 
       <div class="form-group">
         <label for="ds_nome">NOME DO PRODUTO</label>
         <input type="text" class="form-control" id="ds_nome" name="ds_nome" value="<%= banco.ds_nome %>" required>
@@ -38,7 +40,7 @@
       <div class="form-group">
         <label for="ds_unidade">ATIVO </label>
         <select class="form-control" id="ds_ativo" name="ds_ativo"  required>
-          <option value="true">NAO</option>
+          <option value="true">SIM</option>
           <option value="false" <%= !banco.tp_ativo  ? 'selected' : '' %> > NÃO</option>
         </select>
       </div>

@@ -1,6 +1,8 @@
 
 <%- include('../layouts/main_header.ejs'); %>
  
+
+<a href="/ingredientes-create" class="btn btn-success ml-auto">Novo Produto</a>
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
       <tr>
@@ -12,16 +14,16 @@
     </thead>
     <tbody>
       <% for (const produto of banco) { %>
-        <tr>
+        <tr style="<%=produtoSave && produtoSave == produto.id.toString() ? 'background-color: yellow' : '' %>">
           <td><%= produto.ds_nome %></td>
           <td><%= produto.ds_marca %></td>
           <td><%= produto.tp_ativo ? 'sim' : 'nao' %></td>
-          <td><%= produto.data %></td>
+          <td><%=  produto.date  %></td>
           <td><%= produto.unidade %></td>
           <td><%= produto.quantidade %></td>
-          <td><%= produto.preco %></td>
+          <td><%= produto.preco %>    </td>
 
-          <td><a href="/ingredientes-edit?objectId=<%= produto.objectId %>">Editar</a></td>
+          <td><a href="/ingredientes-edit?id=<%= produto.id %>">Editar</a></td>
         </tr>
       <% } %>
     </tbody>
