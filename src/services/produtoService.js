@@ -76,6 +76,42 @@ class ProdutoService {
 
 
 
+
+  async saveAJAX (req, res) { 
+
+    try {
+      const _id = req.body._id;
+      const mongoDBConnection = new MongoDBConnection()
+      const db = await mongoDBConnection.connect(); 
+      const preco = await db.collection('tb_preco').findOne({ _id: new ObjectId(_id) });    
+      preco.date =  new Date()
+      preco.nu_preco =  req.body.preco
+      await db.collection('tb_preco').updateOne({ _id: new ObjectId(_id) }, { $set: preco });
+    
+      const dados = [{
+        "data": formatarDataParaString(preco.date),
+        "preco": preco.nu_preco
+      }];
+      
+      const dadosJson = JSON.stringify(dados); 
+    
+      // Verificar se o preço foi salvo corretamente
+      const precoSalvo = await db.collection('tb_preco').findOne({ _id: new ObjectId(_id) });
+      if (precoSalvo.nu_preco !== req.body.preco) {
+        throw new Error('Erro ao salvar preço no banco de dados.');
+      }
+    
+      return dadosJson;
+    } catch (err) {
+      console.error(err);
+      return JSON.stringify({ error: 'Erro ao atualizar o preço.' });
+    } finally {
+      //await db.close();
+    }
+
+  }
+
+
   async lerProdutosEAdicionarPreco(req, res) {
 
     const mongoDBConnection = new MongoDBConnection()
@@ -105,12 +141,12 @@ class ProdutoService {
         }
 
         if (precoFind) {
-
+          novoProduto._id2  = precoFind._id
           novoProduto.date = precoFind.date ? formatarDataParaString(precoFind.date) : ''
 
           novoProduto.unidade = precoFind.ds_unidade
           novoProduto.quantidade = precoFind.ds_quantidade
-          novoProduto.preco = precoFind.nu_preco
+          novoProduto.preco = precoFind.nu_preco ? parseFloat(precoFind.nu_preco).toFixed(2) : ''
 
           novoProduto.ref = precoFind.ds_unidade + '-' + precoFind.ds_quantidade + '-' + precoFind.nu_preco
 
@@ -155,29 +191,7 @@ class ProdutoService {
   }
 }
 
-/*
-// Exemplo de uso do CRUD
-const produtoController = new ProdutoController();
-
-// Criar a tabela de produtos
-await produtoController.criarTabela();
-
-// Adicionar um novo produto
-const novoProduto = new Produto('billy', 'gilman', true);
-await produtoController.adicionarProduto(novoProduto);
-
-// Listar os produtos
-await produtoController.listarProdutos();
-
-// Atualizar um produto existente
-const produtoExistente = new Produto('billy', 'gilman', true);
-produtoExistente.tp_atico = false;
-await produtoController.atualizarProduto(produtoExistente);
-
-// Deletar um produto existente
-await produtoController.deletarProduto(produtoExistente);
-
-*/
+ 
 
 function formatarDataParaString(data) {
   try {
@@ -191,6 +205,10 @@ function formatarDataParaString(data) {
   }
 
 }
+
+
+
+
 
 
 module.exports = ProdutoService;

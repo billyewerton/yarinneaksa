@@ -1,15 +1,37 @@
 
 <%- include('../layouts/main_header.ejs'); %>
+
  
 
+ 
+<style>
+  input {
+    width: 90px;
+  }
+  .success {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
 <a href="/ingredientes-create" class="btn btn-success ml-auto">Novo Produto</a>
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
       <tr>
         <th>Nome</th>
         <th>Marca</th>
-        <th>Ativo</th>
         <th>Data ultima atualização de preço</th>
+    
+        <th>Ativo</th>
+        <th>Quantidade </th>
+        
+        <th> Preço </th>
+        <th>   </th>
+        <th> NOVO PREÇO   </th>
+      
       </tr>
     </thead>
     <tbody>
@@ -17,13 +39,34 @@
         <tr style="<%=produtoSave && produtoSave == produto.id.toString() ? 'background-color: yellow' : '' %>">
           <td><%= produto.ds_nome %></td>
           <td><%= produto.ds_marca %></td>
-          <td><%= produto.tp_ativo ? 'sim' : 'nao' %></td>
-          <td><%=  produto.date  %></td>
-          <td><%= produto.unidade %></td>
-          <td><%= produto.quantidade %></td>
-          <td><%= produto.preco %>    </td>
-
+          <td id='date-<%= produto._id2 %>' ><%=  produto.date  %></td>
+          <td><%= produto.tp_ativo ? 'sim' : 'nao' %></td> 
+          <td> <%= produto.quantidade  %>  (<%= produto.unidade %>)</td>
+          <td  id='preco-<%= produto._id2 %>'>R$ <%= produto.preco %>    </td>
+         
           <td><a href="/ingredientes-edit?id=<%= produto.id %>">Editar</a></td>
+
+          <td> 
+
+
+            <div class="input-group-prepend">
+              <span class="input-group-text">R$</span>
+              <input type="text"          
+              name="preco"
+              step="0.01"
+              class="preco  "
+              pattern="[0-9]+(\.[0-9][0-9])?"
+              placeholder="0.00"
+              id='<%= produto._id2 %>' />
+              <button
+                type="button"
+                class="btn btn-success"
+                onclick="salvarIngrediente('<%= produto._id2 %>', document.getElementById('<%= produto._id2 %>').value)" >
+                Salvar
+              </button>
+            </div>
+            
+          </td>
         </tr>
       <% } %>
     </tbody>
@@ -34,5 +77,94 @@
     </tfoot>
   </table>
 
+<div id="modalMensagem"> </div> 
 
 <%- include('../layouts/main_footer.ejs'); %>
+
+<script>
+  var jq = jQuery.noConflict();
+  jq(document).ready(function () {
+    $(".preco").inputmask("numeric", {
+      radixPoint: ".",
+      groupSeparator: "",
+      digits: 2,
+      allowMinus: false,
+      autoGroup: true,
+      prefix: "", // deixar vazio para que não apareça nenhum símbolo
+    });
+  });
+
+
+  function salvarIngrediente(_id, preco) {
+
+ 
+  $.ajax({
+    type: "POST",
+    url: "/ingredientes-saveAJAX",
+    dataType: 'JSON',   
+    data: { _id: _id, preco: preco },
+    success:function(dataAjax,textStatus){
+  
+ 
+ 
+
+    const id_preco = "#preco-" + _id
+     const id_data = "#date-" +  _id
+
+     $(id_preco).html(dataAjax[0].preco).css({
+  "background-color": "green",
+  "color": "white",
+  "transition": "background-color 0.5s ease-out, color 0.5s ease-out"
+});
+setTimeout(function() {
+  $(id_preco).css({
+    "background-color": "",
+    "color": "black",
+    "transition": "background-color 0.5s ease-out, color 0.5s ease-out"
+  });
+}, 5000);
+
+
+$(id_data).html(dataAjax[0].data).css({
+  "background-color": "green",
+  "color": "white",
+  "transition": "background-color 0.5s ease-out, color 0.5s ease-out"
+});
+setTimeout(function() {
+  $(id_data).css({
+    "background-color": "",
+    "color": "black",
+    "transition": "background-color 0.5s ease-out, color 0.5s ease-out"
+  });
+}, 5000);
+
+ 
+
+
+      // Atualiza os campos com os valores retornados pela requisição
+   //   $("#divCampos #ds_data").html(response.data);
+     // $("#divCampos #ds_preco").html(response.preco);
+
+      // Exibe um modal com a mensagem de sucesso
+     // $("#modalMensagem").modal("show");
+      //$("#modalMensagem .modal-body").text("Ingrediente salvo com sucesso!");
+    },
+    error: function(xhr, status, error) {
+      // Exibe uma mensagem de erro caso a requisição falhe
+      alert("Erro ao salvar ingrediente: " );
+    }
+  });
+}
+
+
+
+function teste(_id,response) {
+  const id_preco = "#preco-" + _id
+     const id_data = "#data-" +  _id
+
+   //  $(id_preco).html(response.preco + '')
+    // $(id_data).html(response.data)
+  console.log(response.data)
+}
+ 
+</script>

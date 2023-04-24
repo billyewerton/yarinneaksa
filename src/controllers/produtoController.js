@@ -51,6 +51,20 @@ if(req.query.id) {
         })
     
     }
+
+    exports.saveAJAX = async (req,res) => {  
+ 
+ 
+    
+       const dadosJson=  await produtoServices().saveAJAX(req,res)   
+         
+       
+    
+        res.status(200).send(dadosJson)
+        // Retorna a string com os valores em formato JSON
+      //  return dadosJson;
+    
+      }
     
     
 
