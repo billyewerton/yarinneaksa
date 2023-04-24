@@ -79,7 +79,15 @@ class ProdutoService {
 
   async saveAJAX (req, res) { 
 
+
+    
     try {
+      console.log(!parseFloat(req.body.preco))
+
+      if ( !parseFloat(req.body.preco)) {
+       
+        throw new Error('Erro ao salvar preço no banco de dados.');
+      }
       const _id = req.body._id;
       const mongoDBConnection = new MongoDBConnection()
       const db = await mongoDBConnection.connect(); 
@@ -90,7 +98,7 @@ class ProdutoService {
     
       const dados = [{
         "data": formatarDataParaString(preco.date),
-        "preco": preco.nu_preco
+        "preco": "R$ " + parseFloat(preco.nu_preco).toFixed(2) 
       }];
       
       const dadosJson = JSON.stringify(dados); 
