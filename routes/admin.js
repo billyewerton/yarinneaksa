@@ -8,6 +8,14 @@ const produtoController = require("../src/controllers/produtoController")
 // Rotas principais
 router.get('/', admincontroller.main)
 
+
+
+
+// Rotas relacionadas a meus pprdiyos
+router.get('/meus-produtos-create', verificarAutenticacao,produtoController.produtoVendaCreate)
+ 
+
+
 // Rotas relacionadas a ingredientes
 router.get('/ingredientes', verificarAutenticacao,produtoController.ingredientes)
 router.get('/ingredientes-edit', produtoController.ingredientesEdit)

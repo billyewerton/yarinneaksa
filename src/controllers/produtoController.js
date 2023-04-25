@@ -65,6 +65,24 @@ if(req.query.id) {
       //  return dadosJson;
     
       }
+
+
+      exports.produtoVendaCreate  = async (req,res) => {  
+
+        let ingredientes = await produtoServices().lerProdutosEAdicionarPreco(req,res) 
+        ingredientes = ingredientes.filter(ingrediente => ingrediente.tp_ativo)
+        
+     console.log(ingredientes)
+ 
+
+        res.render('produtos/create.ejs', {
+            title: 'Dashboard',          
+            ingredientes: ingredientes,
+            ingredientesText: JSON.stringify(ingredientes) 
+    
+        })
+    
+    }
     
     
 
