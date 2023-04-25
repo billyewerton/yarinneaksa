@@ -274,19 +274,19 @@
  
  
     const ingredientes = <%- ingredientesText %>;
-    $('select[name="ingredientes[]"]').change(function() {
-      const id = $(this).val();
-      const tr = $(this).closest('tr');
-      const preco = ingredientes.find(ingrediente => ingrediente.id == id);
-      tr.find('.update-preco').val(preco.preco);
-      tr.find('.update-quantidade').val(preco.quantidade);
-      update_custo(tr);
-    });
+    $(document).on("change", "select[name='ingredientes[]']", function() {
+  const id = $(this).val();
+  const tr = $(this).closest('tr');
+  const preco = ingredientes.find(ingrediente => ingrediente.id == id);
+  tr.find('.update-preco').val(preco.preco);
+  tr.find('.update-quantidade').val(preco.quantidade);
+  update_custo(tr);
+});
 
-    $('input[name="quantidades_usada[]"], input[name="quantidades[]"]').keyup(function() {
-      const tr = $(this).closest('tr');
-      update_custo(tr);
-    });
+$(document).on("keyup", 'input[name="quantidades_usada[]"], input[name="quantidades[]"]', function() {
+  const tr = $(this).closest('tr');
+  update_custo(tr);
+});
 
     function update_custo(tr) {
       const id = tr.find('select[name="ingredientes[]"]').val();
