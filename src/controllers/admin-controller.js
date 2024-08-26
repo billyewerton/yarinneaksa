@@ -11,9 +11,11 @@ const ProdutoController = require('../services/produtoService');
 const PrecoController = require('../controllers/precoController');
 const Produto = require('../domains/produto'); 
 const Preco = require('../domains/produto-preco'); 
+
+
 exports.main = async (req,res) => {
 
-     const ProdutoControllers = new ProdutoController(); 
+    /*const ProdutoControllers = new ProdutoController(); 
     const precoController = new PrecoController();
 
     const novoProduto = new Produto('billy', 'gilman', true);
@@ -23,7 +25,11 @@ exports.main = async (req,res) => {
  
     await precoController.create(preco1)
     await precoController.create(preco2)  
-    
+    */
+
+
+
+
  
  
        
